@@ -3,8 +3,10 @@ const mongoose = require('mongoose');
 const cors = require('cors')
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
+const { authenticate } = require('./utils/authentication');
 
 const userRoutes = require('./routes/userRoutes');
+const foodRoutes = require('./routes/foodRoutes');
 
 const app = express();
 
@@ -28,7 +30,9 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
-app.use('/api/user', userRoutes)
+app.use('/api/user', userRoutes);
+app.use('/api/food', authenticate, foodRoutes);
+
 
 app.use((err,res) => {
     const statusCode = err.statusCode || 500;
