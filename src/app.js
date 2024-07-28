@@ -23,7 +23,7 @@ mongoose.connect(dbURL).then((connection)=>{
 });
 
 app.use(cors({
-    origin: '*',
+    origin: process.env.NODE_ENV === 'production' ? process.env.CORS_ORIGIN_PROD : process.env.CORS_ORIGIN_DEV,
     credentials: true
 }));
 
